@@ -1,4 +1,25 @@
-const ffioSys = Deno.dlopen("bin/ffi.dylib", {
+import { CachePolicy, prepare } from "https://deno.land/x/plug/plug.ts";
+const url =
+  "https://github.com/littledivy/picohttpparser_deno/releases/download/0.1.0/";
+let opts = {
+  name: "ffi",
+  urls: {
+    darwin: {
+      aarch64: url + "ffi_aarch64.dylib",
+      x86_64: url + "ffi.dylib",
+    },
+    linux: url + "ffi.so",
+  },
+};
+
+if (Deno.env.get("DEV")) {
+  let ext = Deno.build.os === "darwin" ? "dylib" : "so";
+  delete opts.urls;
+  opts.url = (new URL("bin/ffi." + ext, import.meta.url)).toString();
+  opts.policy = CachePolicy.NONE;
+}
+
+const ffioSys = (await prepare(opts, {
   ffio_parse_request: {
     parameters: ["buffer", "i32"],
     result: "i32",
@@ -19,7 +40,7 @@ const ffioSys = Deno.dlopen("bin/ffi.dylib", {
     parameters: ["buffer", "buffer"],
     result: "i32",
   },
-}).symbols;
+})).symbols;
 
 const {
   ffio_parse_request,
