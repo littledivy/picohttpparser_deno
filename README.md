@@ -3,7 +3,7 @@
 ```typescript
 import { parseRequest } from "https://deno.land/x/picohttpparser/mod.ts";
 
-let h0 = encode(`HTTP/1.1 200 OK\r\nContent-Length: 13\r\n\r\nHello, World!`);
+let h0 = encode(`GET / HTTP/1.1\r\nContent-Length: 13\r\n\r\nHello, World!`);
 let req = parseRequest(h0);
 
 while (req.isPartial) {
