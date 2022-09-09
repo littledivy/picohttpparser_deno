@@ -1,4 +1,4 @@
-## picohttparse deno
+## picohttparser deno
 
 ```js
 import { parseRequest } from "https://deno.land/x/picohttparse/mod.ts";
@@ -16,3 +16,5 @@ req.method; // "GET"
 req.url; // "/"
 req.body; // null
 ```
+
+![image](https://user-images.githubusercontent.com/34997667/189287994-7ab35925-f118-4110-a035-22dceaf95c6b.png)
