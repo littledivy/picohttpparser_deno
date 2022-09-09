@@ -26,6 +26,7 @@ jobs:
         shell: bash
         run: |
           set -xeuo pipefail
+          mkdir -p build
           make
 
       - name: Release
