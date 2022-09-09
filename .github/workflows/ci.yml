@@ -15,7 +15,8 @@ jobs:
       fail-fast: false
     steps:
       - uses: actions/checkout@v2
-        submodules: true
+        with:
+          submodules: true
 
       - uses: denoland/setup-deno@v1
         with:
