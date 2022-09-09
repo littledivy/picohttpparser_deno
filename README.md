@@ -1,7 +1,7 @@
-## picohttparser deno
+## `picohttpparser` in Deno
 
-```js
-import { parseRequest } from "https://deno.land/x/picohttparse/mod.ts";
+```typescript
+import { parseRequest } from "https://deno.land/x/picohttpparser/mod.ts";
 
 let h0 = encode(`HTTP/1.1 200 OK\r\nContent-Length: 13\r\n\r\nHello, World!`);
 let req = parseRequest(h0);

@@ -1,0 +1,38 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    name: Build ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+        submodules: true
+
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: canary
+
+      - name: Build
+        shell: bash
+        run: |
+          set -xeuo pipefail
+          make
+
+      - name: Release
+        uses: softprops/action-gh-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: "release draft"
+          draft: true
+          files: |
+            bin/ffi.dylib
