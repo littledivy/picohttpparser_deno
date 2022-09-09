@@ -38,3 +38,4 @@ jobs:
           draft: true
           files: |
             bin/ffi.dylib
+            bin/ffi.so
